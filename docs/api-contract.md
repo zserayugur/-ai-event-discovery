@@ -12,7 +12,7 @@
 - Hata formatı: `{ "error": { "code": "...", "message": "..." } }`
 - Liste endpoint'leri sayfalama kullanır: `?page=1&limit=20`, yanıtta `meta.total`, `meta.page`, `meta.limit` döner.
 
-## Kişi 1 — Etkinlik Verisi ve Keşif
+## Elifnaz — Etkinlik Verisi ve Keşif
 
 | Method | Endpoint | Açıklama |
 |--------|----------|----------|
@@ -22,7 +22,7 @@
 | GET | `/venues` | Mekân listesi |
 | GET | `/venues/:id` | Mekân detayı |
 
-## Kişi 2 — Kullanıcı ve Kişiselleştirme
+## Seray — Kullanıcı ve Kişiselleştirme
 
 Kimlik doğrulama JWT ile yapılır: `access_token` (30 dk) ve `refresh_token` (7 gün).
 Şifreler bcrypt ile hash'lenir, en az 8 karakter olmalıdır.
@@ -37,14 +37,14 @@ Kimlik doğrulama JWT ile yapılır: `access_token` (30 dk) ve `refresh_token` (
 | PUT | `/users/me` | Profil güncelleme. Body: `name`, `district` |
 | GET | `/users/me/interests` | İlgi alanlarını getirir: `{ categories: [{ id, name, weight }] }` |
 | PUT | `/users/me/interests` | İlgi alanlarını günceller (cold start ekranı). Body: `category_ids: []` → `onboarding_done = true` olur |
-| GET | `/users/me/favorites` | Favori etkinlikler (Kişi 1'in event özet formatıyla, sayfalı) |
+| GET | `/users/me/favorites` | Favori etkinlikler (Elifnaz'ın event özet formatıyla, sayfalı) |
 | POST | `/users/me/favorites/:eventId` | Favoriye ekle → `201` |
 | DELETE | `/users/me/favorites/:eventId` | Favoriden çıkar → `204` |
 | POST | `/events/:id/rating` | Etkinliği puanla. Body: `rating: 1-5` |
 | POST | `/interactions` | Örtük geri bildirim. Body: `event_id`, `type` (`view`, `click`, `dismiss`, `ticket_click`) → `202` |
 | GET | `/recommendations` | "Senin için önerilenler". Query: `limit`. Her öğe: `{ event, score, reason }`. Giriş yapılmamışsa veya ilgi alanı seçilmemişse popüler ve yakın tarihli etkinlikler döner (cold start) |
 
-## Kişi 3 — Akıllı Arama ve Etkileşim
+## İrem — Akıllı Arama ve Etkileşim
 
 | Method | Endpoint | Açıklama |
 |--------|----------|----------|
@@ -58,4 +58,4 @@ Kimlik doğrulama JWT ile yapılır: `access_token` (30 dk) ve `refresh_token` (
 
 - `search` endpoint'i `events` listelemesiyle aynı response şemasını mı kullanacak, yoksa ek alanlar (`relevance_score` vb.) içerecek mi?
 - Harita görünümü için `/events` yanıtında `venue.lat`/`venue.lng` her zaman dolu gelecek mi, yoksa ayrı bir `/events/map` endpoint'i mi gerekir?
-- ~~Token tipi: JWT mi, session mı?~~ → JWT (access + refresh token), bkz. Kişi 2 bölümü.
+- ~~Token tipi: JWT mi, session mı?~~ → JWT (access + refresh token), bkz. Seray bölümü.

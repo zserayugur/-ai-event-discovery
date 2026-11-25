@@ -5,7 +5,7 @@
 
 ## Tablolar
 
-### `users` (Kişi 2)
+### `users` (Seray)
 | Alan | Tip | Açıklama |
 |------|-----|----------|
 | id | UUID / INT PK | |
@@ -17,7 +17,7 @@
 | created_at | datetime | |
 | updated_at | datetime | |
 
-### `interests` (Kişi 2)
+### `interests` (Seray)
 Kullanıcının ilgi alanı seçtiği kategoriler.
 | Alan | Tip | Açıklama |
 |------|-----|----------|
@@ -25,13 +25,13 @@ Kullanıcının ilgi alanı seçtiği kategoriler.
 | category_id | FK → categories.id | |
 | weight | float | varsayılan 1.0, kullanıcı etkileşimleriyle güncellenir |
 
-### `categories` (Kişi 1)
+### `categories` (Elifnaz)
 | Alan | Tip | Açıklama |
 |------|-----|----------|
 | id | INT PK | |
 | name | string | konser, tiyatro, sergi, festival, spor, atölye vb. |
 
-### `tags` (Kişi 1 — AI tarafından üretilir)
+### `tags` (Elifnaz — AI tarafından üretilir)
 | Alan | Tip | Açıklama |
 |------|-----|----------|
 | id | INT PK | |
@@ -43,17 +43,17 @@ Kullanıcının ilgi alanı seçtiği kategoriler.
 | event_id | FK → events.id | |
 | tag_id | FK → tags.id | |
 
-### `venues` (Kişi 1)
+### `venues` (Elifnaz)
 | Alan | Tip | Açıklama |
 |------|-----|----------|
 | id | INT PK | |
 | name | string | |
 | address | string | |
 | city | string | varsayılan: Ankara |
-| lat | float | harita görünümü için (Kişi 3) |
-| lng | float | harita görünümü için (Kişi 3) |
+| lat | float | harita görünümü için (İrem) |
+| lng | float | harita görünümü için (İrem) |
 
-### `events` (Kişi 1)
+### `events` (Elifnaz)
 | Alan | Tip | Açıklama |
 |------|-----|----------|
 | id | UUID / INT PK | |
@@ -70,14 +70,14 @@ Kullanıcının ilgi alanı seçtiği kategoriler.
 | created_at | datetime | |
 | updated_at | datetime | |
 
-### `favorites` (Kişi 2)
+### `favorites` (Seray)
 | Alan | Tip | Açıklama |
 |------|-----|----------|
 | user_id | FK → users.id | |
 | event_id | FK → events.id | |
 | created_at | datetime | |
 
-### `ratings` (Kişi 2)
+### `ratings` (Seray)
 | Alan | Tip | Açıklama |
 |------|-----|----------|
 | user_id | FK → users.id | |
@@ -85,7 +85,7 @@ Kullanıcının ilgi alanı seçtiği kategoriler.
 | rating | int (1-5) | |
 | created_at | datetime | |
 
-### `interactions` (Kişi 2)
+### `interactions` (Seray)
 Öneri motoru için örtük geri bildirim kayıtları.
 | Alan | Tip | Açıklama |
 |------|-----|----------|
@@ -95,7 +95,7 @@ Kullanıcının ilgi alanı seçtiği kategoriler.
 | type | string | view, click, dismiss, ticket_click |
 | created_at | datetime | index: (user_id, created_at) |
 
-### `recommendations_cache` (Kişi 2, opsiyonel)
+### `recommendations_cache` (Seray, opsiyonel)
 Hesaplanan önerileri ve "neden önerildi" açıklamasını saklar.
 | Alan | Tip | Açıklama |
 |------|-----|----------|
@@ -105,7 +105,7 @@ Hesaplanan önerileri ve "neden önerildi" açıklamasını saklar.
 | reason | string | örn. "Tiyatro ilgin nedeniyle" |
 | generated_at | datetime | |
 
-### `notifications` (Kişi 3)
+### `notifications` (İrem)
 | Alan | Tip | Açıklama |
 |------|-----|----------|
 | id | UUID / INT PK | |

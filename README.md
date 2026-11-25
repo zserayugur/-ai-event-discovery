@@ -16,13 +16,13 @@ Kullanıcılar:
 
 | Kişi | Alan | Sorumluluklar |
 |------|------|----------------|
-| Kişi 1 | Etkinlik Verisi ve Keşif | Scraper, etkinlik/mekân verisi, listeleme & filtreleme API'leri, otomatik kategorizasyon, ana sayfa/liste/detay sayfaları |
-| Kişi 2 | Kullanıcı ve Kişiselleştirme | Auth, profil, favoriler, öneri motoru (içerik tabanlı + iş birlikçi filtreleme), cold start, "Senin için önerilenler" |
-| Kişi 3 | Akıllı Arama ve Etkileşim | Doğal dille arama, benzer etkinlik önerisi, arama/bildirim servisleri, harita & takvim görünümü, responsive tasarım, CI/deploy |
+| Elifnaz | Etkinlik Verisi ve Keşif | Scraper, etkinlik/mekân verisi, listeleme & filtreleme API'leri, otomatik kategorizasyon, ana sayfa/liste/detay sayfaları |
+| Seray | Kullanıcı ve Kişiselleştirme | Auth, profil, favoriler, öneri motoru (içerik tabanlı + iş birlikçi filtreleme), cold start, "Senin için önerilenler" |
+| İrem | Akıllı Arama ve Etkileşim | Doğal dille arama, benzer etkinlik önerisi, arama/bildirim servisleri, harita & takvim görünümü, responsive tasarım, CI/deploy |
 
-Ortak işler: API sözleşmesi & DB şeması (1. hafta, üçü birlikte), UI tasarım sistemi (Kişi 1),
-test yazımı (herkes kendi özelliği için), rapor/README (herkes kendi bölümü, Kişi 2 birleştirir),
-sunum ve demo (Kişi 3 hazırlar).
+Ortak işler: API sözleşmesi & DB şeması (1. hafta, üçü birlikte), UI tasarım sistemi (Elifnaz),
+test yazımı (herkes kendi özelliği için), rapor/README (herkes kendi bölümü, Seray birleştirir),
+sunum ve demo (İrem hazırlar).
 
 ## Proje Yapısı
 
@@ -48,6 +48,6 @@ bir Issue olarak açılır ve ilgili commit'ler açıklayıcı mesajlarla bu Iss
 
 ## Takım Üyeleri
 
-- Kişi 1: _(isim eklenecek)_
-- Kişi 2: _(isim eklenecek)_
-- Kişi 3: _(isim eklenecek)_
+- Elifnaz: Etkinlik Verisi ve Keşif
+- Seray: Kullanıcı ve Kişiselleştirme
+- İrem: Akıllı Arama ve Etkileşim
