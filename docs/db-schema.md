@@ -12,7 +12,10 @@
 | email | string, unique | |
 | password_hash | string | |
 | name | string | |
+| district | string, nullable | Ankara ilçesi (konuma göre öneri için) |
+| onboarding_done | bool | ilgi alanı seçimi (cold start ekranı) tamamlandı mı |
 | created_at | datetime | |
+| updated_at | datetime | |
 
 ### `interests` (Kişi 2)
 Kullanıcının ilgi alanı seçtiği kategoriler.
@@ -20,6 +23,7 @@ Kullanıcının ilgi alanı seçtiği kategoriler.
 |------|-----|----------|
 | user_id | FK → users.id | |
 | category_id | FK → categories.id | |
+| weight | float | varsayılan 1.0, kullanıcı etkileşimleriyle güncellenir |
 
 ### `categories` (Kişi 1)
 | Alan | Tip | Açıklama |
@@ -81,6 +85,26 @@ Kullanıcının ilgi alanı seçtiği kategoriler.
 | rating | int (1-5) | |
 | created_at | datetime | |
 
+### `interactions` (Kişi 2)
+Öneri motoru için örtük geri bildirim kayıtları.
+| Alan | Tip | Açıklama |
+|------|-----|----------|
+| id | INT PK | |
+| user_id | FK → users.id | |
+| event_id | FK → events.id | |
+| type | string | view, click, dismiss, ticket_click |
+| created_at | datetime | index: (user_id, created_at) |
+
+### `recommendations_cache` (Kişi 2, opsiyonel)
+Hesaplanan önerileri ve "neden önerildi" açıklamasını saklar.
+| Alan | Tip | Açıklama |
+|------|-----|----------|
+| user_id | FK → users.id | |
+| event_id | FK → events.id | |
+| score | float | |
+| reason | string | örn. "Tiyatro ilgin nedeniyle" |
+| generated_at | datetime | |
+
 ### `notifications` (Kişi 3)
 | Alan | Tip | Açıklama |
 |------|-----|----------|
@@ -98,6 +122,7 @@ Kullanıcının ilgi alanı seçtiği kategoriler.
 - `events` ↔ `tags` (N:N, `event_tags` üzerinden)
 - `users` ↔ `events` → `favorites`, `ratings` (N:N)
 - `users` ↔ `categories` → `interests` (N:N, cold start için kullanılır)
+- `users` ↔ `events` → `interactions` (N:N, öneri motoru için)
 - `users` → `notifications` (1:N)
 
 ## Açık Sorular

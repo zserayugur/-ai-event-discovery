@@ -24,20 +24,25 @@
 
 ## Kişi 2 — Kullanıcı ve Kişiselleştirme
 
+Kimlik doğrulama JWT ile yapılır: `access_token` (30 dk) ve `refresh_token` (7 gün).
+Şifreler bcrypt ile hash'lenir, en az 8 karakter olmalıdır.
+
 | Method | Endpoint | Açıklama |
 |--------|----------|----------|
-| POST | `/auth/register` | Kayıt. Body: `email`, `password`, `name` |
-| POST | `/auth/login` | Giriş. Body: `email`, `password` → `token` döner |
-| POST | `/auth/logout` | Çıkış |
-| GET | `/users/me` | Profil bilgisi |
-| PUT | `/users/me` | Profil güncelleme |
-| GET | `/users/me/interests` | İlgi alanlarını getirir |
-| PUT | `/users/me/interests` | İlgi alanlarını günceller. Body: `category_ids: []` |
-| GET | `/users/me/favorites` | Favori etkinlikler |
-| POST | `/users/me/favorites/:eventId` | Favoriye ekle |
-| DELETE | `/users/me/favorites/:eventId` | Favoriden çıkar |
+| POST | `/auth/register` | Kayıt. Body: `email`, `password`, `name` → `201`, `{ user, access_token, refresh_token }`. Hata: `409 EMAIL_TAKEN` |
+| POST | `/auth/login` | Giriş. Body: `email`, `password` → `{ user, access_token, refresh_token }`. Hata: `401 INVALID_CREDENTIALS` |
+| POST | `/auth/refresh` | Body: `refresh_token` → yeni `access_token`. Hata: `401 INVALID_TOKEN` |
+| POST | `/auth/logout` | Çıkış → `204` |
+| GET | `/users/me` | Profil bilgisi (`onboarding_done` dahil) |
+| PUT | `/users/me` | Profil güncelleme. Body: `name`, `district` |
+| GET | `/users/me/interests` | İlgi alanlarını getirir: `{ categories: [{ id, name, weight }] }` |
+| PUT | `/users/me/interests` | İlgi alanlarını günceller (cold start ekranı). Body: `category_ids: []` → `onboarding_done = true` olur |
+| GET | `/users/me/favorites` | Favori etkinlikler (Kişi 1'in event özet formatıyla, sayfalı) |
+| POST | `/users/me/favorites/:eventId` | Favoriye ekle → `201` |
+| DELETE | `/users/me/favorites/:eventId` | Favoriden çıkar → `204` |
 | POST | `/events/:id/rating` | Etkinliği puanla. Body: `rating: 1-5` |
-| GET | `/recommendations` | "Senin için önerilenler" listesi |
+| POST | `/interactions` | Örtük geri bildirim. Body: `event_id`, `type` (`view`, `click`, `dismiss`, `ticket_click`) → `202` |
+| GET | `/recommendations` | "Senin için önerilenler". Query: `limit`. Her öğe: `{ event, score, reason }`. Giriş yapılmamışsa veya ilgi alanı seçilmemişse popüler ve yakın tarihli etkinlikler döner (cold start) |
 
 ## Kişi 3 — Akıllı Arama ve Etkileşim
 
@@ -53,4 +58,4 @@
 
 - `search` endpoint'i `events` listelemesiyle aynı response şemasını mı kullanacak, yoksa ek alanlar (`relevance_score` vb.) içerecek mi?
 - Harita görünümü için `/events` yanıtında `venue.lat`/`venue.lng` her zaman dolu gelecek mi, yoksa ayrı bir `/events/map` endpoint'i mi gerekir?
-- Token tipi: JWT mi, session mı? (Kişi 2 ile netleştirilecek)
+- ~~Token tipi: JWT mi, session mı?~~ → JWT (access + refresh token), bkz. Kişi 2 bölümü.
