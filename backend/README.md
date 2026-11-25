@@ -25,6 +25,7 @@ app/
 ├── database.py      # DB bağlantısı, Base, get_db
 ├── schemas.py       # İstek/yanıt modelleri
 ├── models/          # SQLAlchemy tabloları (her alan kendi dosyasını ekler)
+├── services/      # recommender.py: öneri motoru
 ├── core/            # Ayarlar, JWT/şifre, ortak hata formatı
 └── api/
     ├── deps.py      # get_current_user, get_optional_user (herkes kullanabilir)
@@ -59,3 +60,12 @@ Yanıtlar `{ "data": ... }`, hatalar `app.core.errors.ApiError` ile
 | POST | `/api/auth/refresh` |
 | POST | `/api/auth/logout` |
 | GET / PUT | `/api/users/me` |
+| GET / PUT | `/api/users/me/interests` |
+| GET | `/api/users/me/favorites` |
+| POST / DELETE | `/api/users/me/favorites/{event_id}` |
+| POST | `/api/events/{event_id}/rating` |
+| POST | `/api/interactions` |
+| GET | `/api/recommendations` (giriş opsiyonel) |
+
+`app/models/event.py` içindeki `Category` ve `Event` minimal sürümdür; Elifnaz kendi
+alanlarıyla genişletebilir.
