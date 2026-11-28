@@ -6,10 +6,8 @@ listeleme işinde venues, tags ve diğer alanlarla genişletebilir.
 """
 from datetime import datetime
 from decimal import Decimal
-
 from sqlalchemy import DateTime, ForeignKey, Integer, Numeric, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-
 from app.database import Base
 from app.models.user import _now
 
@@ -38,3 +36,10 @@ class Event(Base):
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now, onupdate=_now)
 
     category: Mapped[Category] = relationship()
+
+    venue_id: Mapped[int | None] = mapped_column(
+        ForeignKey("venues.id"),
+        nullable=True,
+        index=True
+    )
+    venue: Mapped["Venue | None"] = relationship("Venue")

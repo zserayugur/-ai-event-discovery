@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from app.api.routes import auth, personalization, recommendations, users
+from app.api.routes import auth, events, personalization, recommendations, users
 from app.core.errors import register_error_handlers
 from app.database import Base, engine
 import app.models  # noqa: F401  (tabloların Base'e kaydolması için)
@@ -15,6 +15,7 @@ app.include_router(auth.router, prefix="/api")
 app.include_router(users.router, prefix="/api")
 app.include_router(personalization.router, prefix="/api")
 app.include_router(recommendations.router, prefix="/api")
+app.include_router(events.router, prefix="/api")
 
 
 @app.get("/api/health")

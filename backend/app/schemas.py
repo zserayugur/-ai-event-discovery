@@ -115,3 +115,49 @@ class RecommendationOut(BaseModel):
     event: EventSummaryOut
     score: float
     reason: str
+
+
+# --- Etkinlik Yönetimi (Kişi 1) ---
+
+class EventCreate(BaseModel):
+    title: str = Field(min_length=1, max_length=255)
+    description: str | None = None
+    category_id: int = Field(gt=0)
+    start_date: datetime
+    end_date: datetime | None = None
+    price: float | None = Field(default=None, ge=0)
+    source: str | None = Field(default=None, max_length=50)
+    source_url: str | None = Field(default=None, max_length=500)
+    image_url: str | None = Field(default=None, max_length=500)
+    venue_id: int | None = Field(default=None, gt=0)
+
+
+class EventUpdate(BaseModel):
+    title: str | None = Field(default=None, min_length=1, max_length=255)
+    description: str | None = None
+    category_id: int | None = Field(default=None, gt=0)
+    start_date: datetime | None = None
+    end_date: datetime | None = None
+    price: float | None = Field(default=None, ge=0)
+    source: str | None = Field(default=None, max_length=50)
+    source_url: str | None = Field(default=None, max_length=500)
+    image_url: str | None = Field(default=None, max_length=500)
+    venue_id: int | None = Field(default=None, gt=0)
+
+
+class EventResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    title: str
+    description: str | None
+    category_id: int
+    start_date: datetime
+    end_date: datetime | None
+    price: float | None
+    source: str | None
+    source_url: str | None
+    image_url: str | None
+    venue_id: int | None
+    created_at: datetime
+    updated_at: datetime
